@@ -5,11 +5,12 @@ import Lighting from './scene/Lighting';
 import Sections from './scene/Sections';
 import ClickToMove from './systems/ClickToMove';
 import Kid from './systems/Kid';
+import FollowCamera from './systems/FollowCamera';
 
 export default function App() {
   return (
     <Canvas
-      camera={{ position: [0, 8, 26], fov: 50 }}
+      camera={{ position: [0, 4, 21], fov: 50 }}
       style={{ position: 'fixed', inset: 0, touchAction: 'none' }}
     >
       <color attach="background" args={['#87ceeb']} />
@@ -20,6 +21,7 @@ export default function App() {
         <Sections />
       </ClickToMove>
       <Kid />
+      <FollowCamera />
     </Canvas>
   );
 }

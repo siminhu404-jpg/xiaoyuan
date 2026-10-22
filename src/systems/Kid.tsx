@@ -22,6 +22,8 @@ export default function Kid() {
       const { x, z, reached } = stepToward(posRef.current, g.target, SPEED, dt);
       const solved = resolveCollision(x, z, OBSTACLES);
       posRef.current = solved;
+      // 每帧把位置写进 store，FollowCamera 用 getState() 非响应式读取，避免重渲染风暴
+      useGame.getState().setKidPos({ x: solved.x, z: solved.z });
       // 朝向移动方向
       const dx = g.target.x - solved.x, dz = g.target.z - solved.z;
       if (Math.hypot(dx, dz) > 0.05) {
