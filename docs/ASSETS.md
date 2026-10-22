@@ -17,7 +17,7 @@
 5. 放入 `assets/models/<id>.glb`，单文件 ≤ 1MB（超过就减面/降贴图）
 6. 在对应组件里替换占位几何体（`<Capsule>` → `<useGLTF>`）
 
-> **替换路径对照**：各物件占位几何体都在 `src/scene/hotspot-props/` 下（`Tree.tsx`、`Gate.tsx`、`CorridorProps.tsx`、`BackyardProps.tsx`、`FrontyardProps.tsx`、`Cats.tsx`）；走路的小人（`小人`）在 `src/systems/Kid.tsx`。每改一处，跑一次 `npm run build && npm run size` 确认没超体积红线。
+> **替换路径对照**：各物件占位几何体都在 `src/scene/hotspot-props/` 下（`Trees.tsx`、`Gate.tsx`、`CorridorProps.tsx`、`BackyardProps.tsx`、`FrontyardProps.tsx`、`Cats.tsx`）；走路的小人（`小人`）在 `src/systems/Kid.tsx`。每改一处，跑一次 `npm run build && npm run size` 确认没超体积红线。
 
 ---
 
