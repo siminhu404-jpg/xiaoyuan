@@ -1,13 +1,20 @@
 import { Canvas } from '@react-three/fiber';
+import Ground from './scene/Ground';
+import Boundary from './scene/Boundary';
+import Lighting from './scene/Lighting';
+import Sections from './scene/Sections';
 
 export default function App() {
   return (
     <Canvas
-      camera={{ position: [0, 6, 24], fov: 50 }}
+      camera={{ position: [0, 8, 26], fov: 50 }}
       style={{ position: 'fixed', inset: 0, touchAction: 'none' }}
     >
       <color attach="background" args={['#87ceeb']} />
-      <ambientLight intensity={0.8} />
+      <Lighting />
+      <Ground />
+      <Boundary />
+      <Sections />
     </Canvas>
   );
 }
