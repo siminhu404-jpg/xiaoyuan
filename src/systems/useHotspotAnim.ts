@@ -61,9 +61,9 @@ export function useHotspotAnim(id: HotspotId, anim: AnimKind) {
       case 'catLazy': case 'catAlert': case 'catFriendly': break;
       case 'water': case 'particles': break; // 粒子动效在专属组件实现
     }
-    if (t > 3.5) { // 复位
-      resetGroup(grp, anim);
-    }
+    // 注：卡片合上前动效持续保持（门开着、光影呼吸），统一由合卡分支复位。
+    // 衰减类动效的 Math.max(0, 1-t/N) 乘子在 t>N 后自然归位，无需 3.5s 强制复位——
+    // 强制复位会让 liftDoor 出现「关一帧又立即全开」的闪烁（门是非衰减目标位）。
   });
 
   /**
