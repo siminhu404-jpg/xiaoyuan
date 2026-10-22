@@ -24,7 +24,7 @@ const IDLE: KeyState = {
  */
 export default function KeyboardMove() {
   const { camera } = useThree();
-  const keysRef = useRef<KeyState>(IDLE);
+  const keysRef = useRef<KeyState>({ ...IDLE }); // 每实例独立副本，避免共享对象跨挂载泄漏键态
   const dirVec = useRef(new THREE.Vector3()); // 复用，帧循环零分配
   const wasKeyboardRef = useRef(false);
 
