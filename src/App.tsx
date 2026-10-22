@@ -3,6 +3,7 @@ import Ground from './scene/Ground';
 import Boundary from './scene/Boundary';
 import Lighting from './scene/Lighting';
 import Sections from './scene/Sections';
+import HotspotRegistry from './scene/hotspot-props/HotspotRegistry';
 import ClickToMove from './systems/ClickToMove';
 import Kid from './systems/Kid';
 import FollowCamera from './systems/FollowCamera';
@@ -23,6 +24,7 @@ export default function App() {
           <Ground />
           <Boundary />
           <Sections />
+          <HotspotRegistry />
         </ClickToMove>
         <Kid />
         <FollowCamera />
