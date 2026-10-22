@@ -11,6 +11,7 @@ import FollowCamera from './systems/FollowCamera';
 import IntroSequence from './systems/IntroSequence';
 import AmbientLife from './systems/AmbientLife';
 import PerformanceGuard from './systems/PerformanceGuard';
+import KeyboardMove from './systems/KeyboardMove';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
 import LoadingHint from './ui/LoadingHint';
@@ -37,6 +38,7 @@ export default function App() {
         <Kid />
         <FollowCamera />
         <IntroSequence />
+        <KeyboardMove />
         <AmbientLife />
         <PerformanceGuard />
       </Canvas>

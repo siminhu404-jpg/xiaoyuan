@@ -1,5 +1,8 @@
 import { useGame } from '../app/store';
 
+// 桌面（有精细指针）才提示键盘操作；移动端保持原副标题不变
+const hasKeyboard = typeof window !== 'undefined' && window.matchMedia('(pointer: fine)').matches;
+
 export default function TitleScreen() {
   const phase = useGame((s) => s.phase);
   const setPhase = useGame((s) => s.setPhase);
@@ -18,7 +21,7 @@ export default function TitleScreen() {
         姥姥家的小院
       </h1>
       <p style={{ fontSize: 'min(4.5vw, 20px)', opacity: 0.75, margin: '16px 0 48px' }}>
-        夏天午后 · 点哪儿，人就走哪儿
+        夏天午后 · 点哪儿，人就走哪儿{hasKeyboard ? ' · 也可以用 WASD' : ''}
       </p>
       <div
         style={{
