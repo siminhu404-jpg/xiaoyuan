@@ -8,6 +8,7 @@ import ClickToMove from './systems/ClickToMove';
 import Kid from './systems/Kid';
 import FollowCamera from './systems/FollowCamera';
 import IntroSequence from './systems/IntroSequence';
+import AmbientLife from './systems/AmbientLife';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
 
@@ -29,6 +30,7 @@ export default function App() {
         <Kid />
         <FollowCamera />
         <IntroSequence />
+        <AmbientLife />
       </Canvas>
       <MemoryCard />
       <TitleScreen />
