@@ -13,12 +13,15 @@ interface GameState {
   openHotspot: HotspotId | null;
   /** 小人位置（xyz 每帧同步给 FollowCamera 用） */
   kidPos: { x: number; z: number };
+  /** 性能降级旗标（DPR 已封顶 / 环境粒子减半） */
+  lowPerf: boolean;
 
   setPhase: (p: GamePhase) => void;
   setTarget: (t: { x: number; z: number } | null) => void;
   setPendingHotspot: (id: HotspotId | null) => void;
   setOpenHotspot: (id: HotspotId | null) => void;
   setKidPos: (p: { x: number; z: number }) => void;
+  enableLowPerf: () => void;
 }
 
 export const useGame = create<GameState>((set) => ({
@@ -32,4 +35,6 @@ export const useGame = create<GameState>((set) => ({
   setOpenHotspot: (openHotspot) => set({ openHotspot }),
   kidPos: { x: 0, z: 17 },
   setKidPos: (kidPos) => set({ kidPos }),
+  lowPerf: false,
+  enableLowPerf: () => set({ lowPerf: true }),
 }));

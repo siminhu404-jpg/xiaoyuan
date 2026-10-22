@@ -9,6 +9,7 @@ import Kid from './systems/Kid';
 import FollowCamera from './systems/FollowCamera';
 import IntroSequence from './systems/IntroSequence';
 import AmbientLife from './systems/AmbientLife';
+import PerformanceGuard from './systems/PerformanceGuard';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
 
@@ -16,6 +17,8 @@ export default function App() {
   return (
     <>
       <Canvas
+        dpr={[1, 2]}
+        gl={{ antialias: true, powerPreference: 'high-performance' }}
         camera={{ position: [0, 4, 21], fov: 50 }}
         style={{ position: 'fixed', inset: 0, touchAction: 'none' }}
       >
@@ -31,6 +34,7 @@ export default function App() {
         <FollowCamera />
         <IntroSequence />
         <AmbientLife />
+        <PerformanceGuard />
       </Canvas>
       <MemoryCard />
       <TitleScreen />

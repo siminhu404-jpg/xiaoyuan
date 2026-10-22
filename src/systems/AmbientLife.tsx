@@ -1,6 +1,7 @@
 import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+import { useGame } from '../app/store';
 
 function Butterfly({ center, color }: { center: [number, number, number]; color: string }) {
   const g = useRef<THREE.Group>(null!);
@@ -54,13 +55,14 @@ function FallingLeaf({ origin }: { origin: [number, number, number] }) {
 }
 
 export default function AmbientLife() {
+  const lowPerf = useGame((s) => s.lowPerf);
   return (
     <>
       <Butterfly center={[5, 1.2, -8]} color="#f2b134" />
-      <Butterfly center={[6, 1.1, 2]} color="#e88ab0" />
+      {!lowPerf && <Butterfly center={[6, 1.1, 2]} color="#e88ab0" />}
       <FallingLeaf origin={[-3, 3.5, 8]} />
       <FallingLeaf origin={[-2.2, 3.5, 8.5]} />
-      <FallingLeaf origin={[-3.8, 3.5, 7.6]} />
+      {!lowPerf && <FallingLeaf origin={[-3.8, 3.5, 7.6]} />}
     </>
   );
 }
