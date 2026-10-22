@@ -13,13 +13,18 @@ export function useHotspotAnim(id: HotspotId, anim: AnimKind) {
   const ref = useRef<Group>(null!);
   const clock = useRef<number | null>(null);
 
-  useFrame((state) => {
+  useFrame((_, dt) => {
     const g = useGame.getState();
     const active = g.openHotspot === id;
     if (active && clock.current === null) clock.current = 0;
-    if (!active && clock.current !== null && clock.current > 0.5) clock.current = null;
+    if (!active && clock.current !== null && clock.current > 0.5) {
+      // 早合上：复位姿态后再清空时钟，避免 props 卡在扭曲位姿
+      const grp = ref.current;
+      if (grp) resetGroup(grp, anim);
+      clock.current = null;
+    }
     if (clock.current === null) return;
-    clock.current += state.clock.getDelta();
+    clock.current += dt;
     const t = clock.current;
     const grp = ref.current;
     if (!grp) return;
@@ -57,9 +62,22 @@ export function useHotspotAnim(id: HotspotId, anim: AnimKind) {
       case 'water': case 'particles': break; // 粒子动效在专属组件实现
     }
     if (t > 3.5) { // 复位
-      grp.rotation.z = 0; grp.rotation.x = 0; grp.scale.set(1, 1, 1); grp.rotation.y = 0;
+      resetGroup(grp, anim);
     }
   });
+
+  /**
+   * 复位 group 到初始姿态；lightFlow 额外恢复材质 opacity。
+   */
+  function resetGroup(grp: Group, animKind: AnimKind) {
+    grp.rotation.z = 0; grp.rotation.x = 0; grp.scale.set(1, 1, 1); grp.rotation.y = 0;
+    if (animKind === 'lightFlow') {
+      const m = (grp.children[0] as {
+        material?: { opacity?: number };
+      })?.material;
+      if (m && typeof m.opacity === 'number') m.opacity = 0.18;
+    }
+  }
 
   return ref;
 }
