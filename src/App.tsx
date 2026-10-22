@@ -4,6 +4,7 @@ import Boundary from './scene/Boundary';
 import Lighting from './scene/Lighting';
 import Sections from './scene/Sections';
 import ClickToMove from './systems/ClickToMove';
+import Kid from './systems/Kid';
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Boundary />
         <Sections />
       </ClickToMove>
+      <Kid />
     </Canvas>
   );
 }
