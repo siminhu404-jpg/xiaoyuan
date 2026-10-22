@@ -13,10 +13,11 @@ export default function App() {
     >
       <color attach="background" args={['#87ceeb']} />
       <Lighting />
-      <Ground />
-      <Boundary />
-      <Sections />
-      <ClickToMove onGroundClick={(p) => console.log('[move]', p)} />
+      <ClickToMove onGroundClick={(p) => console.log('[move]', p)}>
+        <Ground />
+        <Boundary />
+        <Sections />
+      </ClickToMove>
     </Canvas>
   );
 }
