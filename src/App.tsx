@@ -7,6 +7,7 @@ import Sections from './scene/Sections';
 import HotspotRegistry from './scene/hotspot-props/HotspotRegistry';
 import ClickToMove from './systems/ClickToMove';
 import Kid from './systems/Kid';
+import PetDog from './systems/PetDog';
 import FollowCamera from './systems/FollowCamera';
 import IntroSequence from './systems/IntroSequence';
 import AmbientLife from './systems/AmbientLife';
@@ -36,6 +37,7 @@ export default function App() {
           <HotspotRegistry />
         </ClickToMove>
         <Kid />
+        <PetDog />
         <FollowCamera />
         <IntroSequence />
         <KeyboardMove />
