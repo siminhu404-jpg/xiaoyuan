@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Ground from './scene/Ground';
 import Boundary from './scene/Boundary';
@@ -12,8 +13,10 @@ import AmbientLife from './systems/AmbientLife';
 import PerformanceGuard from './systems/PerformanceGuard';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
+import LoadingHint from './ui/LoadingHint';
 
 export default function App() {
+  const [ready, setReady] = useState(false);
   return (
     <>
       <Canvas
@@ -21,6 +24,7 @@ export default function App() {
         gl={{ antialias: true, powerPreference: 'high-performance' }}
         camera={{ position: [0, 4, 21], fov: 50 }}
         style={{ position: 'fixed', inset: 0, touchAction: 'none' }}
+        onCreated={() => setReady(true)}
       >
         <color attach="background" args={['#87ceeb']} />
         <Lighting />
@@ -38,6 +42,7 @@ export default function App() {
       </Canvas>
       <MemoryCard />
       <TitleScreen />
+      {!ready && <LoadingHint />}
     </>
   );
 }
