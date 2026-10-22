@@ -32,4 +32,32 @@ describe('getHotspotMap', () => {
   it('拒绝重复 id', () => {
     expect(() => getHotspotMap({ hotspots: [validHotspot, validHotspot] })).toThrow(/gate/);
   });
+  it('拒绝根对象非对象/热点非数组', () => {
+    expect(() => getHotspotMap(null)).toThrow(/hotspots 数组/);
+    expect(() => getHotspotMap({ hotspots: 'not-an-array' })).toThrow(/hotspots 数组/);
+  });
+  it('拒绝非法 position', () => {
+    expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, position: ['a', 'b'] }] })).toThrow(/position/);
+    expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, position: [0] }] })).toThrow(/position/);
+    expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, position: [0, 'x'] }] })).toThrow(/position/);
+  });
+  it('拒绝非法 standAt', () => {
+    expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, standAt: [0] }] })).toThrow(/standAt/);
+    expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, standAt: ['a', 'b'] }] })).toThrow(/standAt/);
+  });
+  it('拒绝 memory.title 为空', () => {
+    expect(() =>
+      getHotspotMap({ hotspots: [{ ...validHotspot, memory: { title: '', text: 'x' } }] }),
+    ).toThrow(/memory\.title/);
+  });
+  it('拒绝 memory.text 为空', () => {
+    expect(() =>
+      getHotspotMap({ hotspots: [{ ...validHotspot, memory: { title: 't', text: '' } }] }),
+    ).toThrow(/memory\.text/);
+  });
+  it('拒绝 memory.photo 非字符串', () => {
+    expect(() =>
+      getHotspotMap({ hotspots: [{ ...validHotspot, memory: { title: 't', text: 'x', photo: 5 } }] }),
+    ).toThrow(/memory\.photo/);
+  });
 });
