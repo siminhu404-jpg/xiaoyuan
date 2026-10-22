@@ -30,6 +30,6 @@ export const useGame = create<GameState>((set) => ({
   setTarget: (target) => set({ target }),
   setPendingHotspot: (pendingHotspot) => set({ pendingHotspot }),
   setOpenHotspot: (openHotspot) => set({ openHotspot }),
-  kidPos: { x: 0, z: 16 },
+  kidPos: { x: 0, z: 17 },
   setKidPos: (kidPos) => set({ kidPos }),
 }));

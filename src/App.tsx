@@ -6,7 +6,9 @@ import Sections from './scene/Sections';
 import ClickToMove from './systems/ClickToMove';
 import Kid from './systems/Kid';
 import FollowCamera from './systems/FollowCamera';
+import IntroSequence from './systems/IntroSequence';
 import MemoryCard from './ui/MemoryCard';
+import TitleScreen from './ui/TitleScreen';
 
 export default function App() {
   return (
@@ -24,8 +26,10 @@ export default function App() {
         </ClickToMove>
         <Kid />
         <FollowCamera />
+        <IntroSequence />
       </Canvas>
       <MemoryCard />
+      <TitleScreen />
     </>
   );
 }

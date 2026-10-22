@@ -9,8 +9,8 @@ const SPEED = 1.5; // 米/秒，闲庭信步
 
 export default function Kid() {
   const group = useRef<THREE.Group>(null!);
-  const posRef = useRef({ x: 0, z: 16 });
-  const yawRef = useRef(Math.PI); // 面朝南（镜头方向）
+  const posRef = useRef({ x: 0, z: 17 });
+  const yawRef = useRef(Math.PI); // 面朝北（-z，进院方向）
   const tRef = useRef(0);
 
   useFrame((_, dtRaw) => {
@@ -52,7 +52,7 @@ export default function Kid() {
   });
 
   return (
-    <group ref={group} position={[0, 0, 16]}>
+    <group ref={group} position={[0, 0, 17]}>
       {/* 占位小人：胶囊身体+球头。正式模型（Tripo+Mixamo）后续替换 */}
       <mesh castShadow position={[0, 0.55, 0]}>
         <capsuleGeometry args={[0.22, 0.55, 4, 8]} />

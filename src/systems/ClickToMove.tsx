@@ -25,6 +25,7 @@ export default function ClickToMove({
     down.y = e.clientY ?? 0;
   };
   const handleUp = (e: ThreeEvent<PointerEvent>) => {
+    if (useGame.getState().phase !== 'play') return; // intro 期间不响应移动
     e.stopPropagation(); // 只处理最近命中，避免多个交点重复触发
     const dx = (e.clientX ?? 0) - down.x, dy = (e.clientY ?? 0) - down.y;
     if (Math.hypot(dx, dy) > DRAG_THRESHOLD_PX) return; // 拖动视角，不算点击
