@@ -38,3 +38,32 @@ export const useGame = create<GameState>((set) => ({
   lowPerf: false,
   enableLowPerf: () => set({ lowPerf: true }),
 }));
+
+// ---- test instrumentation (Playwright smoke) ----
+// 把 phase / kidPos 同步到 window 便于 E2E 断言；__openHotspot 做成双向桥，
+// 测试可直接写它来打开/关闭记忆卡（走真实 store setter）。仅为测试而加（~200B），
+// 无行为变更，MV0 阶段随主包发布可接受。
+declare global {
+  interface Window {
+    __phase?: GamePhase;
+    __kidPos?: { x: number; z: number };
+    __openHotspot?: HotspotId | null;
+  }
+}
+if (typeof window !== 'undefined') {
+  useGame.subscribe((s) => {
+    window.__phase = s.phase;
+    window.__kidPos = s.kidPos;
+  });
+  // 双向桥：读 = 当前 store 值，写 = 调用真实 setOpenHotspot
+  Object.defineProperty(window, '__openHotspot', {
+    configurable: true,
+    enumerable: true,
+    get() {
+      return useGame.getState().openHotspot;
+    },
+    set(v: HotspotId | null) {
+      useGame.getState().setOpenHotspot(v);
+    },
+  });
+}
