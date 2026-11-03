@@ -1,9 +1,10 @@
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
+import { LANDMARKS } from '../layout';
 
 export function JujubeTree() {
   const ref = useHotspotAnim('jujube-tree', 'shake');
   return (
-    <group position={[-3, 0, 8]}>
+    <group position={[LANDMARKS.jujubeTree[0], 0, LANDMARKS.jujubeTree[1]]}>
       <group ref={ref} userData={{ hotspotId: 'jujube-tree' }}>
         <mesh position={[0, 1.5, 0]} castShadow userData={{ hotspotId: 'jujube-tree' }}>
           <cylinderGeometry args={[0.28, 0.4, 3, 8]} />

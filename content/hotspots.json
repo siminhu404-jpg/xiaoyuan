@@ -6,7 +6,7 @@
       "memory": { "title": "盖新房那年", "text": "（草稿）..." } },
     { "id": "new-house-east", "label": "东边新房", "position": [7, 13], "standAt": [4, 9.5], "anim": "curtain",
       "memory": { "title": "东屋", "text": "（草稿）..." } },
-    { "id": "jujube-tree", "label": "枣树", "position": [7, 11], "standAt": [5, 11], "anim": "shake",
+    { "id": "jujube-tree", "label": "枣树", "position": [7, 8.5], "standAt": [5, 8.5], "anim": "shake",
       "memory": { "title": "那棵枣树", "text": "（草稿）每年秋天打枣..." } },
     { "id": "wall-cactus", "label": "墙头仙人掌", "position": [0, 0.2], "standAt": [-2, 2.2], "anim": "wobble",
       "memory": { "title": "墙上的仙人掌", "text": "（草稿）..." } },

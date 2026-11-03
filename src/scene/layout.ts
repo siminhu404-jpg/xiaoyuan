@@ -17,7 +17,8 @@ export const WALK_BOUNDS = { minX: -11, maxX: 11, minZ: -17, maxZ: 17 } as const
 /** 两进院落的核心空间锚点，坐标为 [x, z]，单位为米。 */
 export const LANDMARKS = {
   gate: [0, 18],
-  jujubeTree: [7, 11],
+  /** 枣树移入前院开放区（原 [7,11] 压在东侧新房碰撞体上） */
+  jujubeTree: [7, 8.5],
   westVegetablePatch: [-6, 5],
   eastVegetablePatch: [6, 5],
   westGrapeVine: [-6, 2],
