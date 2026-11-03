@@ -1,11 +1,11 @@
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
 import { LANDMARKS } from '../layout';
 
-/** 老院门：门框 + 半透明光影平面（lightFlow 动效驱动 children[0]）。位置 z=-2 在围墙内测 */
+/** 老院门：门框 + 半透明光影平面（lightFlow 动效驱动 children[0]）。对齐内院门热点 LANDMARKS.innerGate */
 function OldDoor() {
   const ref = useHotspotAnim('old-door', 'lightFlow');
   return (
-    <group position={[0, 0, -2]}>
+    <group position={[LANDMARKS.innerGate[0], 0, LANDMARKS.innerGate[1]]}>
       <group ref={ref}>
         <mesh position={[0, 1.2, 0]} userData={{ hotspotId: 'old-door' }}>
           <planeGeometry args={[1.6, 2.4]} />
