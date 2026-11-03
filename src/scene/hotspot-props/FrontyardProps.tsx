@@ -1,8 +1,9 @@
 import * as THREE from 'three';
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
+import { STRUCTURES } from '../layout';
 import type { HotspotId } from '../../content/types';
 
-/** 新房门：挂在房屋南立面（新房为 [-7,1.8,13]/[7,1.8,13]，南面 z≈10），curtain 抖动 */
+/** 新房门：挂在房屋南立面（新房为 [-7,1.8,13]/[7,1.8,13]，南面 z=13-sideHouse 深/2≈10.5），curtain 抖动 */
 function NewHouseDoor({ id, position }: { id: HotspotId; position: [number, number, number] }) {
   const ref = useHotspotAnim(id, 'curtain');
   return (
@@ -31,10 +32,12 @@ function NewHouseDoor({ id, position }: { id: HotspotId; position: [number, numb
 }
 
 export default function FrontyardProps() {
+  // 侧房南立面 z：新房中心 z=13 减去深度一半（STRUCTURES.sideHouse[2]/2）
+  const southFacadeZ = 13 - STRUCTURES.sideHouse[2] / 2;
   return (
     <>
-      <NewHouseDoor id="new-house-west" position={[-7, 0, 10]} />
-      <NewHouseDoor id="new-house-east" position={[7, 0, 10]} />
+      <NewHouseDoor id="new-house-west" position={[-7, 0, southFacadeZ]} />
+      <NewHouseDoor id="new-house-east" position={[7, 0, southFacadeZ]} />
     </>
   );
 }

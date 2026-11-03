@@ -3,12 +3,14 @@ import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame } from '../../app/store';
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
+import { LANDMARKS, STRUCTURES } from '../layout';
 
-/** 堂屋门帘：装在堂屋南立面（屋中心 [-3,0,-15]，南面 z≈-12.5），curtain 抖动 */
+/** 堂屋门帘：装在堂屋南立面中心（LANDMARKS.mainRoom[0], 0, mainRoom 南面 z），curtain 抖动 */
 function MainRoomCurtain() {
   const ref = useHotspotAnim('main-room', 'curtain');
+  const southFacadeZ = LANDMARKS.mainRoom[1] + STRUCTURES.mainRoom[2] / 2;
   return (
-    <group position={[-3, 0, -12.5]}>
+    <group position={[LANDMARKS.mainRoom[0], 0, southFacadeZ]}>
       <group ref={ref} userData={{ hotspotId: 'main-room' }}>
         <mesh position={[-0.7, 1.5, 0]} castShadow userData={{ hotspotId: 'main-room' }}>
           <boxGeometry args={[0.08, 1.9, 0.05]} />
@@ -52,14 +54,14 @@ function WaterSplash() {
     }
     (ref.current.geometry.getAttribute('position') as THREE.BufferAttribute).needsUpdate = true;
   });
-  return <points ref={ref} geometry={geo} position={[3, 1.4, -11]}><pointsMaterial size={0.06} color="#7ec8e3" /></points>;
+  return <points ref={ref} geometry={geo} position={[LANDMARKS.pumpWell[0], 1.4, LANDMARKS.pumpWell[1]]}><pointsMaterial size={0.06} color="#7ec8e3" /></points>;
 }
 
 /** 压水井筒身（可点击） */
 function PumpWell() {
   const ref = useHotspotAnim('pump-well', 'water');
   return (
-    <group position={[3, 0, -11]}>
+    <group position={[LANDMARKS.pumpWell[0], 0, LANDMARKS.pumpWell[1]]}>
       <group ref={ref} userData={{ hotspotId: 'pump-well' }}>
         <mesh position={[0, 0.5, 0]} castShadow userData={{ hotspotId: 'pump-well' }}>
           <cylinderGeometry args={[0.35, 0.45, 1, 12]} />

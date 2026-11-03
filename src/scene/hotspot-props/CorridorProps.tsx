@@ -1,4 +1,5 @@
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
+import { LANDMARKS } from '../layout';
 
 /** 老院门：门框 + 半透明光影平面（lightFlow 动效驱动 children[0]）。位置 z=-2 在围墙内测 */
 function OldDoor() {
@@ -50,11 +51,11 @@ function WallCactus() {
   );
 }
 
-/** 葡萄藤：藤柱 + 廊架横梁，shake 高频小摇摆 */
+/** 葡萄藤：藤柱 + 廊架横梁，shake 高频小摇摆。对齐东侧葡萄架中心 LANDMARKS.eastGrapeVine */
 function GrapeVine() {
   const ref = useHotspotAnim('grape-vine', 'shake');
   return (
-    <group position={[8.8, 0, 0]}>
+    <group position={[LANDMARKS.eastGrapeVine[0], 0, LANDMARKS.eastGrapeVine[1]]}>
       <group ref={ref} userData={{ hotspotId: 'grape-vine' }}>
         <mesh position={[0, 1.3, 0]} castShadow userData={{ hotspotId: 'grape-vine' }}>
           <cylinderGeometry args={[0.16, 0.2, 2.6, 8]} />
@@ -70,11 +71,11 @@ function GrapeVine() {
   );
 }
 
-/** 菜地：在已有菜地土箱上铺几排低矮作物，ripple 呼吸 */
+/** 菜地：在已有菜地土箱上铺几排低矮作物，ripple 呼吸。对齐东侧菜地中心 LANDMARKS.eastVegetablePatch */
 function VegetablePatch() {
   const ref = useHotspotAnim('vegetable-patch', 'ripple');
   return (
-    <group position={[6, 0, 2]}>
+    <group position={[LANDMARKS.eastVegetablePatch[0], 0, LANDMARKS.eastVegetablePatch[1]]}>
       <group ref={ref} userData={{ hotspotId: 'vegetable-patch' }}>
         {[-1.1, 0, 1.1].map((x, i) => (
           <mesh key={i} position={[x, 0.22, 0]} castShadow userData={{ hotspotId: 'vegetable-patch' }}>
