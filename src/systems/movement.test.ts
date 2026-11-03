@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { clampToWalkArea, resolveCollision, stepToward } from './movement';
+import { OBSTACLES } from './obstacles';
 
 describe('clampToWalkArea', () => {
   it('范围内原样返回', () => {
@@ -34,4 +35,20 @@ describe('stepToward', () => {
     const r = stepToward({ x: 0, z: 0 }, { x: 0.2, z: 0 }, 1, 0.5);
     expect(r.reached).toBe(true);
   });
+});
+
+it('外门到堂屋的主通道不被圆形障碍连续封死', () => {
+  const samples = [
+    { x: 0, z: 16 },
+    { x: 0, z: 10 },
+    { x: 0, z: 4 },
+    { x: 0, z: -4 },
+    { x: 0, z: -10 },
+  ];
+
+  for (const point of samples) {
+    const resolved = resolveCollision(point.x, point.z, OBSTACLES);
+    expect(resolved.x, `x at z=${point.z}`).toBeCloseTo(point.x, 1);
+    expect(resolved.z, `z at z=${point.z}`).toBeCloseTo(point.z, 1);
+  }
 });
