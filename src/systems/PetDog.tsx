@@ -32,7 +32,7 @@ export default function PetDog() {
   const yaw = useRef(Math.PI);
   const t = useRef(0);
   const wasMoving = useRef(false);
-  const { scene, animations } = useGLTF(ASSET_PATHS.borderCollie);
+  const { scene, animations } = useGLTF(ASSET_PATHS.borderCollie, true);
   const model = useMemo(() => {
     const clone = cloneSkinnedScene(scene) as THREE.Group;
     clone.traverse((object) => {

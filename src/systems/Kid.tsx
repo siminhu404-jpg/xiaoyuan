@@ -21,7 +21,7 @@ function actionName(actions: Record<string, THREE.AnimationAction | null>, name:
 export default function Kid() {
   const group = useRef<THREE.Group>(null!);
   const modelGroup = useRef<THREE.Group>(null!);
-  const { scene, animations } = useGLTF(ASSET_PATHS.character);
+  const { scene, animations } = useGLTF(ASSET_PATHS.character, true);
   const animationClips = useMemo(
     () => animations.map((clip) => stripHorizontalRootMotion(clip, clip.name === 'sit.001')),
     [animations],

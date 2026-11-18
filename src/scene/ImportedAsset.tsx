@@ -71,7 +71,7 @@ export function ImportedAsset({
   rotation = [0, 0, 0],
   materialStyle = 'courtyard',
 }: ImportedAssetProps) {
-  const { scene } = useGLTF(path);
+  const { scene } = useGLTF(path, true);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     clone.traverse((object) => {
