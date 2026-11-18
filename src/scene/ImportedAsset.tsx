@@ -4,6 +4,8 @@ import * as THREE from 'three';
 import type { HotspotId } from '../content/types';
 import { getCenterOffset, getFitWidthScale } from './assetTransform';
 
+useGLTF.setDecoderPath(`${import.meta.env.BASE_URL}draco/`);
+
 type ImportedAssetProps = {
   path: string;
   hotspotId?: HotspotId;

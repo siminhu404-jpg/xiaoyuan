@@ -8,6 +8,8 @@ import { stepToward, resolveCollision } from './movement';
 import { getObstacles } from './obstacles';
 import { stripHorizontalRootMotion } from './characterAnimation';
 
+useGLTF.setDecoderPath(`${import.meta.env.BASE_URL}draco/`);
+
 const SPEED = 1.5; // 米/秒，闲庭信步
 const CHARACTER_SCALE = 1.45;
 const SEATED_GROUP_Y = 0.5; // 把臀部抬到摇椅坐垫上，避免腿部陷入坐垫
