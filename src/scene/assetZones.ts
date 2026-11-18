@@ -13,9 +13,7 @@ export function getAssetZone(z: number): AssetZone {
 }
 
 export function useLoadedAssetZones(): LoadedZones {
-  const kidZ = useGame((state) => state.kidPos.z);
-  const targetZ = useGame((state) => state.target?.z);
-  const zone = getAssetZone(targetZ ?? kidZ);
+  const zone = useGame((state) => getAssetZone(state.target?.z ?? state.kidPos.z));
   const [loadedZones, setLoadedZones] = useState<LoadedZones>({
     frontyard: true,
     corridor: true,
