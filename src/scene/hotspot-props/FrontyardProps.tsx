@@ -1,13 +1,21 @@
 import * as THREE from 'three';
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
-import { STRUCTURES } from '../layout';
+import { LANDMARKS, STRUCTURES } from '../layout';
 import type { HotspotId } from '../../content/types';
 
-/** 新房门：挂在房屋南立面（新房为 [-7,1.8,13]/[7,1.8,13]，南面 z=13-sideHouse 深/2≈10.5），curtain 抖动 */
-function NewHouseDoor({ id, position }: { id: HotspotId; position: [number, number, number] }) {
+/** 新房门：挂在两座现代房屋朝院内的侧立面，curtain 抖动。 */
+function NewHouseDoor({
+  id,
+  position,
+  rotation,
+}: {
+  id: HotspotId;
+  position: [number, number, number];
+  rotation: number;
+}) {
   const ref = useHotspotAnim(id, 'curtain');
   return (
-    <group position={position}>
+    <group position={position} rotation={[0, rotation, 0]}>
       <group ref={ref} userData={{ hotspotId: id }}>
         <mesh position={[-0.6, 1.3, 0]} castShadow userData={{ hotspotId: id }}>
           <boxGeometry args={[0.09, 2.1, 0.06]} />
@@ -32,12 +40,22 @@ function NewHouseDoor({ id, position }: { id: HotspotId; position: [number, numb
 }
 
 export default function FrontyardProps() {
-  // 侧房南立面 z：新房中心 z=13 减去深度一半（STRUCTURES.sideHouse[2]/2）
-  const southFacadeZ = 13 - STRUCTURES.sideHouse[2] / 2;
+  // 旋转后模型的局部宽度沿南北方向，局部深度沿东西方向。
+  const innerFacadeOffset = STRUCTURES.modernHouse[2] / 2;
+  const westInnerFacadeX = LANDMARKS.westOuterHouse[0] + innerFacadeOffset;
+  const eastInnerFacadeX = LANDMARKS.eastOuterHouse[0] - innerFacadeOffset;
   return (
     <>
-      <NewHouseDoor id="new-house-west" position={[-7, 0, southFacadeZ]} />
-      <NewHouseDoor id="new-house-east" position={[7, 0, southFacadeZ]} />
+      <NewHouseDoor
+        id="new-house-west"
+        position={[westInnerFacadeX, 0, LANDMARKS.westOuterHouse[1]]}
+        rotation={Math.PI / 2}
+      />
+      <NewHouseDoor
+        id="new-house-east"
+        position={[eastInnerFacadeX, 0, LANDMARKS.eastOuterHouse[1]]}
+        rotation={-Math.PI / 2}
+      />
     </>
   );
 }

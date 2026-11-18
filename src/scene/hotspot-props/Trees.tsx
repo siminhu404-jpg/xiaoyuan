@@ -1,42 +1,44 @@
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
 import { LANDMARKS } from '../layout';
+import { ImportedAsset } from '../ImportedAsset';
 
-export function JujubeTree() {
+function JujubeTreeModel({ position }: { position: readonly [number, number] }) {
   const ref = useHotspotAnim('jujube-tree', 'shake');
   return (
-    <group position={[LANDMARKS.jujubeTree[0], 0, LANDMARKS.jujubeTree[1]]}>
+    <group position={[position[0], 0, position[1]]}>
       <group ref={ref} userData={{ hotspotId: 'jujube-tree' }}>
-        <mesh position={[0, 1.5, 0]} castShadow userData={{ hotspotId: 'jujube-tree' }}>
-          <cylinderGeometry args={[0.28, 0.4, 3, 8]} />
-          <meshLambertMaterial color="#6b4f2f" />
-        </mesh>
-        <mesh position={[0, 3.4, 0]} castShadow userData={{ hotspotId: 'jujube-tree' }}>
-          <sphereGeometry args={[1.6, 12, 10]} />
-          <meshLambertMaterial color="#4a7a2e" />
-        </mesh>
+        <ImportedAsset
+          path="/assets/jujube-tree.glb"
+          hotspotId="jujube-tree"
+          fitHeight={4}
+          materialStyle="plant"
+        />
       </group>
     </group>
   );
 }
 
-/** 单丛月季（一个 hotspot: roses，东西两丛共用同一记忆卡） */
+export function JujubeTree() {
+  return (
+    <>
+      <JujubeTreeModel position={LANDMARKS.westJujubeTree} />
+      <JujubeTreeModel position={LANDMARKS.jujubeTree} />
+    </>
+  );
+}
+
+/** 两丛月季共用同一个热点和正式 GLB 资产。 */
 function RoseBush({ position }: { position: readonly [number, number, number] }) {
   const ref = useHotspotAnim('roses', 'wobble');
   return (
     <group position={position}>
       <group ref={ref} userData={{ hotspotId: 'roses' }}>
-        <mesh position={[0, 0.45, 0]} castShadow userData={{ hotspotId: 'roses' }}>
-          <sphereGeometry args={[0.55, 10, 8]} />
-          <meshLambertMaterial color="#3f6b2a" />
-        </mesh>
-        <mesh position={[0.18, 0.85, 0.1]} castShadow userData={{ hotspotId: 'roses' }}>
-          <sphereGeometry args={[0.16, 8, 6]} />
-          <meshLambertMaterial color="#d4547a" />
-        </mesh>
-        <mesh position={[-0.2, 0.8, -0.1]} castShadow userData={{ hotspotId: 'roses' }}>
-          <sphereGeometry args={[0.13, 8, 6]} />
-          <meshLambertMaterial color="#d4547a" />
-        </mesh>
+        <ImportedAsset
+          path="/assets/rose-bush.glb"
+          hotspotId="roses"
+          fitHeight={1.8}
+          materialStyle="plant"
+        />
       </group>
     </group>
   );
@@ -45,8 +47,8 @@ function RoseBush({ position }: { position: readonly [number, number, number] })
 export function Roses() {
   return (
     <>
-      <RoseBush position={[5, 0, -8]} />
-      <RoseBush position={[-5, 0, -8]} />
+      <RoseBush position={[LANDMARKS.eastRoses[0], 0, LANDMARKS.eastRoses[1]]} />
+      <RoseBush position={[LANDMARKS.westRoses[0], 0, LANDMARKS.westRoses[1]]} />
     </>
   );
 }

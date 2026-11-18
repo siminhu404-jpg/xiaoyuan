@@ -2,48 +2,75 @@ import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame } from '../../app/store';
+import { ASSET_PATHS } from '../../content/assets';
+import { CAT_WANDER_BOUNDS, LANDMARKS } from '../layout';
+import { ImportedAsset } from '../ImportedAsset';
 
-function Cat({ offset, color }: { offset: [number, number, number]; color: string }) {
+const CAT_BASE_Y = 0.05;
+
+type CatAsset = {
+  path: string;
+  offset: [number, number, number];
+  fitHeight: number;
+  phase: number;
+};
+
+function Cat({ path, offset, fitHeight, phase }: CatAsset) {
   const g = useRef<THREE.Group>(null!);
-  useFrame((state) => {
+  const target = useRef<[number, number]>([offset[0], offset[2]]);
+  const nextTargetAt = useRef(phase);
+
+  useFrame((state, delta) => {
     const t = state.clock.elapsedTime;
     const active = useGame.getState().openHotspot === 'cats';
-    if (g.current) {
-      // 呼吸起伏（永远在动）+ 被点击时轻微跳一下
-      const breathe = Math.sin(t * 1.8 + offset[0]) * 0.015;
-      const hop = active ? Math.max(0, Math.sin(t * 6)) * 0.1 : 0;
-      g.current.position.y = 1.1 + breathe + hop;
-      g.current.rotation.y = offset[0]; // 各自朝向
+    if (!g.current) return;
+
+    if (t >= nextTargetAt.current) {
+      target.current = [
+        CAT_WANDER_BOUNDS.minX +
+          ((Math.sin(t * 0.83 + phase) + 1) / 2) *
+            (CAT_WANDER_BOUNDS.maxX - CAT_WANDER_BOUNDS.minX),
+        CAT_WANDER_BOUNDS.minZ +
+          ((Math.cos(t * 0.71 + phase) + 1) / 2) *
+            (CAT_WANDER_BOUNDS.maxZ - CAT_WANDER_BOUNDS.minZ),
+      ];
+      nextTargetAt.current = t + 2.8 + ((phase * 10) % 1.5);
     }
+
+    const dx = target.current[0] - g.current.position.x;
+    const dz = target.current[1] - g.current.position.z;
+    const distance = Math.hypot(dx, dz);
+    if (distance > 0.05) {
+      const step = Math.min(distance, delta * 0.45);
+      g.current.position.x += (dx / distance) * step;
+      g.current.position.z += (dz / distance) * step;
+      g.current.rotation.y = Math.atan2(dx, dz);
+    }
+
+    const breathe = Math.sin(t * 1.8 + phase) * 0.015;
+    const hop = active ? Math.max(0, Math.sin(t * 6)) * 0.1 : 0;
+    g.current.position.y = CAT_BASE_Y + breathe + hop;
   });
+
   return (
-    <group ref={g} position={offset}>
-      <mesh castShadow userData={{ hotspotId: 'cats' }}>
-        <capsuleGeometry args={[0.14, 0.34, 4, 8]} />
-        <meshLambertMaterial color={color} />
-      </mesh>
-      <mesh position={[0, 0.26, 0.06]} castShadow userData={{ hotspotId: 'cats' }}>
-        <sphereGeometry args={[0.12, 10, 8]} />
-        <meshLambertMaterial color={color} />
-      </mesh>
-      <mesh position={[-0.08, 0.3, -0.14]} rotation={[0.4, 0, -0.3]} userData={{ hotspotId: 'cats' }}>
-        <coneGeometry args={[0.05, 0.12, 4]} />
-        <meshLambertMaterial color={color} />
-      </mesh>
-      <mesh position={[0.08, 0.3, -0.14]} rotation={[0.4, 0, 0.3]} userData={{ hotspotId: 'cats' }}>
-        <coneGeometry args={[0.05, 0.12, 4]} />
-        <meshLambertMaterial color={color} />
-      </mesh>
+    <group ref={g} position={offset} userData={{ hotspotId: 'cats' }}>
+      <ImportedAsset path={path} hotspotId="cats" fitHeight={fitHeight} />
     </group>
   );
 }
 
 export default function Cats() {
+  const cats: CatAsset[] = [
+    { path: ASSET_PATHS.threeColorCat, offset: [0, 0, 0], fitHeight: 0.55, phase: 0.2 },
+    { path: ASSET_PATHS.blackCat, offset: [0.8, 0, 0.5], fitHeight: 0.55, phase: 1.7 },
+    { path: ASSET_PATHS.whiteCat, offset: [-0.7, 0, 0.6], fitHeight: 0.55, phase: 3.1 },
+  ];
+
   return (
-    <group position={[-6, 0, 1.5]}>
-      <Cat offset={[0, 1.1, 0]} color="#e8a04c" />       {/* 慵懒·橙 */}
-      <Cat offset={[0.8, 1.1, 0.5]} color="#4a4a4a" />   {/* 警惕·灰 */}
-      <Cat offset={[-0.7, 1.1, 0.6]} color="#f0ede6" />  {/* 亲人·白 */}
+    <group position={[LANDMARKS.cats[0], 0, LANDMARKS.cats[1]]}>
+      {cats.map((cat) => (
+        <Cat key={cat.path} {...cat} />
+      ))}
     </group>
   );
 }

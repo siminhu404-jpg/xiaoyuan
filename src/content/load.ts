@@ -3,11 +3,11 @@ import type { AnimKind, HotspotId, Hotspot, HotspotMap } from './types';
 const IDS: readonly HotspotId[] = [
   'gate', 'new-house-west', 'new-house-east', 'jujube-tree',
   'wall-cactus', 'cats', 'grape-vine', 'vegetable-patch',
-  'old-door', 'pump-well', 'main-room', 'roses',
+  'old-door', 'pump-well', 'main-room', 'roses', 'rocking-chair',
 ];
 const ANIMS: readonly AnimKind[] = [
   'shake', 'wobble', 'ripple', 'particles', 'liftDoor', 'curtain',
-  'water', 'lightFlow', 'catLazy', 'catAlert', 'catFriendly',
+  'water', 'lightFlow', 'catLazy', 'catAlert', 'catFriendly', 'sit',
 ];
 
 function fail(msg: string): never {

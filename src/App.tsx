@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Canvas } from '@react-three/fiber';
-import Ground from './scene/Ground';
+import * as THREE from 'three';
 import Boundary from './scene/Boundary';
 import Lighting from './scene/Lighting';
 import Sections from './scene/Sections';
@@ -16,6 +16,7 @@ import KeyboardMove from './systems/KeyboardMove';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
 import LoadingHint from './ui/LoadingHint';
+import { GRAYBOX_CAMERA } from './scene/layout';
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -23,15 +24,19 @@ export default function App() {
     <>
       <Canvas
         dpr={[1, 2]}
+        shadows={{ type: THREE.PCFSoftShadowMap }}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
-        camera={{ position: [0, 4, 21], fov: 50 }}
+        camera={{ position: [0, GRAYBOX_CAMERA.height, 25], fov: GRAYBOX_CAMERA.fov }}
         style={{ position: 'fixed', inset: 0, touchAction: 'none' }}
-        onCreated={() => setReady(true)}
+        onCreated={({ gl }) => {
+          gl.toneMapping = THREE.ACESFilmicToneMapping;
+          gl.toneMappingExposure = 0.95;
+          setReady(true);
+        }}
       >
-        <color attach="background" args={['#87ceeb']} />
+        <color attach="background" args={['#d7c5ad']} />
         <Lighting />
         <ClickToMove onGroundClick={(p) => console.log('[move]', p)}>
-          <Ground />
           <Boundary />
           <Sections />
           <HotspotRegistry />

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { clampToWalkArea, resolveCollision, stepToward } from './movement';
-import { OBSTACLES } from './obstacles';
+import { OBSTACLES, getObstacles } from './obstacles';
 
 describe('clampToWalkArea', () => {
   it('范围内原样返回', () => {
@@ -8,7 +8,7 @@ describe('clampToWalkArea', () => {
   });
   it('超界裁剪', () => {
     const r = clampToWalkArea(99, 99);
-    expect(r.x).toBe(11); expect(r.z).toBe(17);
+    expect(r.x).toBe(11); expect(r.z).toBe(19.5);
   });
 });
 
@@ -35,6 +35,25 @@ describe('stepToward', () => {
     const r = stepToward({ x: 0, z: 0 }, { x: 0.2, z: 0 }, 1, 0.5);
     expect(r.reached).toBe(true);
   });
+});
+
+it('生活道具位置也纳入碰撞体，人物不会穿过摇椅', () => {
+  const resolved = resolveCollision(0.5, 1.5, OBSTACLES);
+  expect(Math.hypot(resolved.x - 0.5, resolved.z - 1.5)).toBeGreaterThanOrEqual(0.8);
+});
+
+it('葡萄架和菜地位置也会阻挡人物', () => {
+  const resolved = resolveCollision(-6, 2, OBSTACLES);
+  expect(Math.hypot(resolved.x + 6, resolved.z - 2)).toBeGreaterThanOrEqual(1.79);
+
+  const vegetable = resolveCollision(6, 5, OBSTACLES);
+  expect(Math.hypot(vegetable.x - 6, vegetable.z - 5)).toBeGreaterThanOrEqual(2.39);
+});
+
+it('关闭外门时，门洞本身不可穿过', () => {
+  const resolved = resolveCollision(0, 18, getObstacles(false));
+  expect(Math.hypot(resolved.x, resolved.z - 18)).toBeGreaterThanOrEqual(2.1);
+  expect(getObstacles(true)).toHaveLength(OBSTACLES.length);
 });
 
 it('外门到堂屋的主通道不被圆形障碍连续封死', () => {

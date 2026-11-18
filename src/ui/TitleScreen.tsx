@@ -9,7 +9,7 @@ export default function TitleScreen() {
   if (phase !== 'title') return null;
   return (
     <div
-      onClick={() => setPhase('intro')}
+      onClick={() => setPhase('play')}
       style={{
         position: 'fixed', inset: 0, zIndex: 30, cursor: 'pointer',
         display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',

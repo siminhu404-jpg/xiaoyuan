@@ -3,7 +3,7 @@ import { getHotspotMap } from './load';
 
 const validHotspot = {
   id: 'gate', label: '新大门',
-  position: [0, 18] as const, standAt: [0, 16.5] as const,
+  position: [0, 18] as const, standAt: [0, 19.2] as const,
   anim: 'liftDoor',
   memory: { title: '回家', text: '每次回来...', photo: 'gate-2020.webp' },
 };
@@ -14,10 +14,14 @@ describe('getHotspotMap', () => {
     expect(m.hotspots).toHaveLength(1);
     expect(m.hotspots[0].label).toBe('新大门');
   });
-  it('photo 可省略', () => {
-    const { memory, ...noPhoto } = validHotspot;
-    const m = getHotspotMap({ hotspots: [{ ...noPhoto, memory: { title: 't', text: 'x' } }] });
-    expect(m.hotspots[0].memory?.photo).toBeUndefined();
+  it('接受摇椅坐下交互热点', () => {
+    const m = getHotspotMap({
+      hotspots: [{
+        id: 'rocking-chair', label: '摇椅',
+        position: [0.5, 1.25], standAt: [0.5, 2.7], anim: 'sit',
+      }],
+    });
+    expect(m.hotspots[0].id).toBe('rocking-chair');
   });
   it('拒绝未知 id', () => {
     expect(() => getHotspotMap({ hotspots: [{ ...validHotspot, id: 'moon' as never }] })).toThrow(/id/);

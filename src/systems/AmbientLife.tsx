@@ -2,11 +2,11 @@ import { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useGame } from '../app/store';
+import { ASSET_PATHS } from '../content/assets';
+import { ImportedAsset } from '../scene/ImportedAsset';
 
-function Butterfly({ center, color }: { center: [number, number, number]; color: string }) {
+function Butterfly({ center }: { center: [number, number, number] }) {
   const g = useRef<THREE.Group>(null!);
-  const wingL = useRef<THREE.Mesh>(null!);
-  const wingR = useRef<THREE.Mesh>(null!);
   useFrame((state) => {
     const t = state.clock.elapsedTime;
     g.current.position.set(
@@ -15,20 +15,10 @@ function Butterfly({ center, color }: { center: [number, number, number]; color:
       center[2] + Math.sin(t * 0.9 + 1) * 1.2,
     );
     g.current.rotation.y = t * 0.7 + Math.PI / 2;
-    const flap = Math.sin(t * 14) * 0.9;
-    wingL.current.rotation.y = flap;
-    wingR.current.rotation.y = -flap;
   });
   return (
     <group ref={g} position={center}>
-      <mesh ref={wingL} position={[0.06, 0, 0]}>
-        <planeGeometry args={[0.14, 0.1]} />
-        <meshBasicMaterial color={color} side={THREE.DoubleSide} />
-      </mesh>
-      <mesh ref={wingR} position={[-0.06, 0, 0]}>
-        <planeGeometry args={[0.14, 0.1]} />
-        <meshBasicMaterial color={color} side={THREE.DoubleSide} />
-      </mesh>
+      <ImportedAsset path={ASSET_PATHS.butterfly} fitHeight={0.32} />
     </group>
   );
 }
@@ -58,8 +48,8 @@ export default function AmbientLife() {
   const lowPerf = useGame((s) => s.lowPerf);
   return (
     <>
-      <Butterfly center={[5, 1.2, -8]} color="#f2b134" />
-      {!lowPerf && <Butterfly center={[6, 1.1, 2]} color="#e88ab0" />}
+      <Butterfly center={[5, 1.2, -8]} />
+      {!lowPerf && <Butterfly center={[6, 1.1, 2]} />}
       <FallingLeaf origin={[-3, 3.5, 8]} />
       <FallingLeaf origin={[-2.2, 3.5, 8.5]} />
       {!lowPerf && <FallingLeaf origin={[-3.8, 3.5, 7.6]} />}

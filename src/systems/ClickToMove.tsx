@@ -3,6 +3,7 @@ import type { ReactNode } from 'react';
 import type { ThreeEvent } from '@react-three/fiber';
 import { useGame } from '../app/store';
 import { hotspots } from '../content/data';
+import { getHotspotAction } from './clickRouting';
 
 const DRAG_THRESHOLD_PX = 8;
 
@@ -36,9 +37,34 @@ export default function ClickToMove({
     if (hid) {
       const h = hotspots.find((x) => x.id === hid);
       if (!h) return;
-      useGame.getState().setPendingHotspot(h.id);
-      useGame.getState().setTarget({ x: h.standAt[0], z: h.standAt[1] });
+      const action = getHotspotAction(h);
+      if (action.kind === 'open') {
+        useGame.getState().setSeated(false);
+        useGame.getState().setPendingHotspot(null);
+        useGame.getState().setTarget(null);
+        useGame.getState().setGateOpen(true);
+      } else if (action.kind === 'pump') {
+        useGame.getState().setSeated(false);
+        useGame.getState().setPendingHotspot(null);
+        useGame.getState().setTarget(null);
+        useGame.getState().triggerPump();
+      } else if (action.kind === 'sit') {
+        const game = useGame.getState();
+        if (game.seated) {
+          game.setSeated(false);
+          game.setPendingHotspot(null);
+          game.setTarget(null);
+        } else {
+          game.setPendingHotspot(action.id);
+          game.setTarget(action.target);
+        }
+      } else {
+        useGame.getState().setSeated(false);
+        useGame.getState().setPendingHotspot(action.id);
+        useGame.getState().setTarget(action.target);
+      }
     } else if (obj.name === 'ground') {
+      useGame.getState().setSeated(false);
       useGame.getState().setPendingHotspot(null);
       useGame.getState().setTarget({ x: hit.point.x, z: hit.point.z });
       onGroundClick?.({ x: hit.point.x, z: hit.point.z });

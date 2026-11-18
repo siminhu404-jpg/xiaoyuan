@@ -2,8 +2,8 @@ import { describe, expect, it } from 'vitest';
 import hotspots from '../../content/hotspots.json';
 import { LANDMARKS, WALK_BOUNDS } from '../scene/layout';
 
-/** 东侧新房碰撞体，与 systems/obstacles.ts 中一致（x:7, z:13, r:3.4） */
-const EAST_SIDE_HOUSE = { x: 7, z: 13, r: 3.4 } as const;
+/** 东侧外院房碰撞体，与 systems/obstacles.ts 中一致。 */
+const EAST_SIDE_HOUSE = { x: LANDMARKS.eastOuterHouse[0], z: LANDMARKS.eastOuterHouse[1], r: 1.8 } as const;
 /** 枣树碰撞体半径，与 systems/obstacles.ts 中一致 */
 const JUJUBE_R = 0.85;
 
@@ -23,6 +23,11 @@ describe('hotspot graybox placement', () => {
       expect(z, `${hotspot.id}.standAt.z`).toBeGreaterThanOrEqual(WALK_BOUNDS.minZ);
       expect(z, `${hotspot.id}.standAt.z`).toBeLessThanOrEqual(WALK_BOUNDS.maxZ);
     }
+  });
+
+  it('外门的交互站立点位于门外，开门后仍需玩家主动走进院子', () => {
+    expect(hotspotById.gate.standAt[1]).toBeGreaterThan(hotspotById.gate.position[1]);
+    expect(WALK_BOUNDS.maxZ).toBeGreaterThan(hotspotById.gate.standAt[1]);
   });
 
   it('保留外门到堂屋的空间层次', () => {

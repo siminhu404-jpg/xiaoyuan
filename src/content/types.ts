@@ -1,11 +1,11 @@
 export type HotspotId =
   | 'gate' | 'new-house-west' | 'new-house-east' | 'jujube-tree'
   | 'wall-cactus' | 'cats' | 'grape-vine' | 'vegetable-patch'
-  | 'old-door' | 'pump-well' | 'main-room' | 'roses';
+  | 'old-door' | 'pump-well' | 'main-room' | 'roses' | 'rocking-chair';
 
 export type AnimKind =
   | 'shake' | 'wobble' | 'ripple' | 'particles' | 'liftDoor' | 'curtain'
-  | 'water' | 'lightFlow' | 'catLazy' | 'catAlert' | 'catFriendly';
+  | 'water' | 'lightFlow' | 'catLazy' | 'catAlert' | 'catFriendly' | 'sit';
 
 export interface MemoryContent {
   title: string;
