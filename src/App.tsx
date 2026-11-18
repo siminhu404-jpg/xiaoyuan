@@ -17,6 +17,7 @@ import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
 import LoadingHint from './ui/LoadingHint';
 import { GRAYBOX_CAMERA } from './scene/layout';
+import { AssetPrefetcher } from './scene/assetZones';
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -41,6 +42,7 @@ export default function App() {
           <Sections />
           <HotspotRegistry />
         </ClickToMove>
+        <AssetPrefetcher />
         <Kid />
         <PetDog />
         <FollowCamera />
