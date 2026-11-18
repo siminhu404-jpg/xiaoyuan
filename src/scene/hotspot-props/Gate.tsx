@@ -58,7 +58,7 @@ export default function Gate() {
       {/* 左门使用原始单扇门；右门使用已反向建模的门扇，不再额外旋转。 */}
       <group ref={leftLeaf} position={[-openingHalf, 0, 0]} userData={{ hotspotId: 'gate' }}>
         <ImportedAsset
-          path="/assets/outer-gate-door.glb"
+          path={ASSET_PATHS.outerGateDoor}
           hotspotId="gate"
           fitHeight={GATE_FRAME.doorHeight}
           fitWidth={GATE_FRAME.doorLeafWidth}

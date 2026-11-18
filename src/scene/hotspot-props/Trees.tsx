@@ -1,3 +1,4 @@
+import { ASSET_PATHS } from '../../content/assets';
 import { useHotspotAnim } from '../../systems/useHotspotAnim';
 import { LANDMARKS } from '../layout';
 import { ImportedAsset } from '../ImportedAsset';
@@ -8,7 +9,7 @@ function JujubeTreeModel({ position }: { position: readonly [number, number] }) 
     <group position={[position[0], 0, position[1]]}>
       <group ref={ref} userData={{ hotspotId: 'jujube-tree' }}>
         <ImportedAsset
-          path="/assets/jujube-tree.glb"
+          path={ASSET_PATHS.jujubeTree}
           hotspotId="jujube-tree"
           fitHeight={4}
           materialStyle="plant"
@@ -34,7 +35,7 @@ function RoseBush({ position }: { position: readonly [number, number, number] })
     <group position={position}>
       <group ref={ref} userData={{ hotspotId: 'roses' }}>
         <ImportedAsset
-          path="/assets/rose-bush.glb"
+          path={ASSET_PATHS.roseBush}
           hotspotId="roses"
           fitHeight={1.8}
           materialStyle="plant"

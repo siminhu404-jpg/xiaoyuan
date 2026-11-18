@@ -28,7 +28,7 @@ function OldDoor() {
     <group position={[LANDMARKS.innerGate[0], 0, LANDMARKS.innerGate[1]]}>
       <group ref={ref} userData={{ hotspotId: 'old-door' }}>
         <ImportedAsset
-          path="/assets/inner-courtyard-gate.glb"
+          path={ASSET_PATHS.innerCourtyardGate}
           hotspotId="old-door"
           fitHeight={STRUCTURES.innerGate[1]}
           fitWidth={PARTITION.openingWidth}
