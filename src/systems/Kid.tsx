@@ -108,5 +108,3 @@ export default function Kid() {
     </group>
   );
 }
-
-useGLTF.preload(ASSET_PATHS.character);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import Boundary from './scene/Boundary';
@@ -39,14 +39,18 @@ export default function App() {
         <ClickToMove onGroundClick={(p) => console.log('[move]', p)}>
           <Boundary />
           <Sections />
-          <HotspotRegistry />
+          <Suspense fallback={null}>
+            <HotspotRegistry />
+          </Suspense>
         </ClickToMove>
-        <Kid />
-        <PetDog />
+        <Suspense fallback={null}>
+          <Kid />
+          <PetDog />
+          <AmbientLife />
+        </Suspense>
         <FollowCamera />
         <IntroSequence />
         <KeyboardMove />
-        <AmbientLife />
         <PerformanceGuard />
       </Canvas>
       <MemoryCard />

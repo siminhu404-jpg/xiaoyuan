@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { LANDMARKS, PARTITION, STRUCTURES } from './layout';
 import Architecture from './Architecture';
 import ModernHouses from './ModernHouses';
@@ -11,7 +12,10 @@ export default function Sections() {
   return (
     <group>
       <CourtyardSurfaces />
-      <Architecture />
+      <Suspense fallback={null}>
+        <Architecture />
+        <ModernHouses />
+      </Suspense>
 
       {/* 内院门由 hotspot-props/CorridorProps 使用正式 GLB 资产渲染。 */}
       {/* 双侧菜地土箱（结构性体块）；菜地作物由 hotspot 组件提供 */}
@@ -39,7 +43,6 @@ export default function Sections() {
       </mesh>
 
       {/* 双侧葡萄架由 hotspot-props/CorridorProps 使用完整 GLB 资产渲染。 */}
-      <ModernHouses />
 
       {/* 过渡区旧横墙拆成两段，中间开口与主通道对齐，不再挡住院子纵深。 */}
       <mesh position={[-partitionOffset, PARTITION.height / 2, PARTITION.z]} castShadow>
