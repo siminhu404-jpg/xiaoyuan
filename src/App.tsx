@@ -23,7 +23,7 @@ export default function App() {
   return (
     <>
       <Canvas
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
         shadows={{ type: THREE.PCFSoftShadowMap }}
         gl={{ antialias: true, powerPreference: 'high-performance' }}
         camera={{ position: [0, GRAYBOX_CAMERA.height, 25], fov: GRAYBOX_CAMERA.fov }}

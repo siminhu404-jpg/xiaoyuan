@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import type { HotspotId } from '../content/types';
-import { assetPath } from '../content/assets';
 import { getCenterOffset, getFitWidthScale } from './assetTransform';
 
 type ImportedAssetProps = {
@@ -78,8 +77,9 @@ export function ImportedAsset({
     clone.traverse((object) => {
       if (!('isMesh' in object) || !object.isMesh) return;
       const mesh = object as THREE.Mesh;
-      mesh.castShadow = true;
-      mesh.receiveShadow = true;
+      const receivesShadow = materialStyle === 'building' || materialStyle === 'wood';
+      mesh.castShadow = receivesShadow;
+      mesh.receiveShadow = receivesShadow;
       if (Array.isArray(mesh.material)) {
         mesh.material = mesh.material.map((material) => styleMaterial(material, materialStyle));
       } else {
@@ -109,30 +109,3 @@ export function ImportedAsset({
 
   return <primitive object={model} position={position} rotation={rotation} />;
 }
-
-useGLTF.preload(assetPath('jujube-tree.glb'));
-useGLTF.preload(assetPath('grapevine-pergola.glb'));
-useGLTF.preload(assetPath('pump-well.glb'));
-useGLTF.preload(assetPath('rose-bush.glb'));
-useGLTF.preload(assetPath('cabbage-plant.glb'));
-useGLTF.preload(assetPath('inner-courtyard-gate.glb'));
-useGLTF.preload(assetPath('outer-gate-door.glb'));
-useGLTF.preload(assetPath('outer-gate-right-door.glb'));
-useGLTF.preload(assetPath('modern-house.glb'));
-useGLTF.preload(assetPath('main-house.glb'));
-useGLTF.preload(assetPath('inner-side-house.glb'));
-useGLTF.preload(assetPath('rocking-chair.glb'));
-useGLTF.preload(assetPath('wall-cactus.glb'));
-useGLTF.preload(assetPath('three-color-cat.glb'));
-useGLTF.preload(assetPath('black-cat.glb'));
-useGLTF.preload(assetPath('white-cat.glb'));
-useGLTF.preload(assetPath('butterfly.glb'));
-useGLTF.preload(assetPath('border-collie.glb'));
-useGLTF.preload(assetPath('tomato-plant.glb'));
-useGLTF.preload(assetPath('pepper-plant.glb'));
-useGLTF.preload(assetPath('bok-choy.glb'));
-useGLTF.preload(assetPath('green-plant.glb'));
-useGLTF.preload(assetPath('wooden-bench.glb'));
-useGLTF.preload(assetPath('metal-bucket.glb'));
-useGLTF.preload(assetPath('wooden-stool.glb'));
-useGLTF.preload(assetPath('rural-stone-trough.glb'));
