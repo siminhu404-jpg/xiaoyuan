@@ -66,24 +66,10 @@ export function getAssetZone(z: number): AssetZone {
 export function AssetPrefetcher() {
   const prefetchedZones = useRef(new Set<AssetZone>());
 
-  useEffect(() => {
-    const corridorTimer = window.setTimeout(() => {
-      prefetchAssetZone('corridor');
-      prefetchedZones.current.add('corridor');
-    }, 1200);
-    const backyardTimer = window.setTimeout(() => {
-      prefetchAssetZone('backyard');
-      prefetchedZones.current.add('backyard');
-    }, 3500);
-    return () => {
-      window.clearTimeout(corridorTimer);
-      window.clearTimeout(backyardTimer);
-    };
-  }, []);
-
   useFrame(() => {
     const state = useGame.getState();
-    const z = state.target?.z ?? state.kidPos.z;
+    if (state.phase === 'title') return;
+    const z = state.kidPos.z;
     const approachingBackyard = z < SECTIONS.corridor.zMin + 5;
     const approachingCorridor = z < SECTIONS.frontyard.zMin + 5;
 
@@ -103,10 +89,10 @@ export function AssetPrefetcher() {
 type ZoneLoadState = LoadedZones;
 
 export function useLoadedAssetZones(): ZoneLoadState {
-  const zone = useGame((state) => getAssetZone(state.target?.z ?? state.kidPos.z));
+  const zone = useGame((state) => getAssetZone(state.kidPos.z - 5));
   const [loadedZones, setLoadedZones] = useState<LoadedZones>({
     frontyard: true,
-    corridor: true,
+    corridor: false,
     backyard: false,
   });
 

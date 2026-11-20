@@ -1,4 +1,4 @@
-import { useState, Suspense } from 'react';
+import { useState, useEffect, useCallback, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import * as THREE from 'three';
 import Boundary from './scene/Boundary';
@@ -15,12 +15,28 @@ import PerformanceGuard from './systems/PerformanceGuard';
 import KeyboardMove from './systems/KeyboardMove';
 import MemoryCard from './ui/MemoryCard';
 import TitleScreen from './ui/TitleScreen';
-import LoadingHint from './ui/LoadingHint';
+import Gate from './scene/hotspot-props/Gate';
+import { useGame } from './app/store';
+import StartupBoundary from './ui/StartupBoundary';
 import { GRAYBOX_CAMERA } from './scene/layout';
 import { AssetPrefetcher } from './scene/assetZones';
 
+function Ready({ onReady }: { onReady: () => void }) {
+  useEffect(onReady, [onReady]);
+  return null;
+}
+
 export default function App() {
+  return <StartupBoundary><Courtyard /></StartupBoundary>;
+}
+
+function Courtyard() {
   const [ready, setReady] = useState(false);
+  const [kidReady, setKidReady] = useState(false);
+  const [gateReady, setGateReady] = useState(false);
+  const onKidReady = useCallback(() => setKidReady(true), []);
+  const onGateReady = useCallback(() => setGateReady(true), []);
+  const playing = useGame((state) => state.phase !== 'title');
   return (
     <>
       <Canvas
@@ -40,6 +56,10 @@ export default function App() {
         <ClickToMove onGroundClick={(p) => console.log('[move]', p)}>
           <Boundary />
           <Suspense fallback={null}>
+            <Gate />
+            <Ready onReady={onGateReady} />
+          </Suspense>
+          <Suspense fallback={null}>
             <Sections />
           </Suspense>
           <Suspense fallback={null}>
@@ -47,17 +67,19 @@ export default function App() {
           </Suspense>
         </ClickToMove>
         <AssetPrefetcher />
-        <Kid />
-        <PetDog />
+        <Suspense fallback={null}>
+          <Kid />
+          <Ready onReady={onKidReady} />
+        </Suspense>
+        {playing && <Suspense fallback={null}><PetDog /></Suspense>}
         <FollowCamera />
         <IntroSequence />
         <KeyboardMove />
-        <AmbientLife />
+        {playing && <Suspense fallback={null}><AmbientLife /></Suspense>}
         <PerformanceGuard />
       </Canvas>
       <MemoryCard />
-      <TitleScreen />
-      {!ready && <LoadingHint />}
+      <TitleScreen ready={ready && kidReady && gateReady} />
     </>
   );
 }

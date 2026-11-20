@@ -1,4 +1,4 @@
-import Gate from './Gate';
+import { Suspense } from 'react';
 import { JujubeTree, Roses } from './Trees';
 import Cats from './Cats';
 import CorridorProps from './CorridorProps';
@@ -14,22 +14,21 @@ export default function HotspotRegistry() {
     <>
       {frontyard && (
         <>
-          <Gate />
-          <JujubeTree />
-          <FrontyardProps />
+          <Suspense fallback={null}><JujubeTree /></Suspense>
+          <Suspense fallback={null}><FrontyardProps /></Suspense>
         </>
       )}
       {corridor && (
         <>
-          <Cats />
-          <CorridorProps />
+          <Suspense fallback={null}><Cats /></Suspense>
+          <Suspense fallback={null}><CorridorProps /></Suspense>
         </>
       )}
       {backyard && (
         <>
-          <Roses />
-          <BackyardProps />
-          <CourtyardProps />
+          <Suspense fallback={null}><Roses /></Suspense>
+          <Suspense fallback={null}><BackyardProps /></Suspense>
+          <Suspense fallback={null}><CourtyardProps /></Suspense>
         </>
       )}
     </>
