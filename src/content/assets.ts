@@ -2,9 +2,30 @@
 const ENTRY_ASSETS = new Set([
   'outer-gate-door.glb', 'outer-gate-right-door.glb', 'modern-house.glb',
   'jujube-tree.glb', 'character-with-animations.glb',
+  'inner-courtyard-gate.glb',
+  'grapevine-pergola.glb',
+  'main-house.glb',
+  'inner-side-house.glb',
+  'rocking-chair.glb',
+  'pump-well.glb',
+  'wooden-bench.glb',
+  'rural-stone-trough.glb',
+  'metal-bucket.glb',
+  'wooden-stool.glb',
+  'rose-bush.glb',
+  'wall-cactus.glb',
+  'tomato-plant.glb',
+  'pepper-plant.glb',
+  'bok-choy.glb',
+  'green-plant.glb',
+  'cabbage-plant.glb',
+  'three-color-cat.glb',
+  'black-cat.glb',
+  'white-cat.glb',
+
 ]);
 export const assetPath = (fileName: string) =>
-  `${import.meta.env.BASE_URL}assets/${fileName}${ENTRY_ASSETS.has(fileName) ? '?v=entry-20261120' : ''}`;
+  `${import.meta.env.BASE_URL}assets/${fileName}${ENTRY_ASSETS.has(fileName) ? '?v=walk-20261120' : ''}`;
 
 export const ASSET_PATHS = {
   jujubeTree: assetPath('jujube-tree.glb'),

@@ -5,32 +5,17 @@ import CorridorProps from './CorridorProps';
 import BackyardProps from './BackyardProps';
 import FrontyardProps from './FrontyardProps';
 import CourtyardProps from './CourtyardProps';
-import { useLoadedAssetZones } from '../assetZones';
 
+// All places exist immediately. ImportedAsset owns each model's fallback and
+// loading boundary, so a slow cabbage cannot hide the gate or the whole garden.
 export default function HotspotRegistry() {
-  const { frontyard, corridor, backyard } = useLoadedAssetZones();
-
-  return (
-    <>
-      {frontyard && (
-        <>
-          <Suspense fallback={null}><JujubeTree /></Suspense>
-          <Suspense fallback={null}><FrontyardProps /></Suspense>
-        </>
-      )}
-      {corridor && (
-        <>
-          <Suspense fallback={null}><Cats /></Suspense>
-          <Suspense fallback={null}><CorridorProps /></Suspense>
-        </>
-      )}
-      {backyard && (
-        <>
-          <Suspense fallback={null}><Roses /></Suspense>
-          <Suspense fallback={null}><BackyardProps /></Suspense>
-          <Suspense fallback={null}><CourtyardProps /></Suspense>
-        </>
-      )}
-    </>
-  );
+  return <>
+    <Suspense fallback={null}><JujubeTree /></Suspense>
+    <FrontyardProps />
+    <Cats />
+    <CorridorProps />
+    <Roses />
+    <BackyardProps />
+    <CourtyardProps />
+  </>;
 }

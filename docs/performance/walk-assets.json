@@ -1,0 +1,405 @@
+{
+  "sourceRevision": "34001a471cd00f6b1e2b7de6158a5acb256e7a46",
+  "models": [
+    {
+      "name": "inner-courtyard-gate",
+      "beforeBytes": 596144,
+      "afterBytes": 252024,
+      "beforeTriangles": 129565,
+      "afterTriangles": 19434,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "grapevine-pergola",
+      "beforeBytes": 630664,
+      "afterBytes": 266760,
+      "beforeTriangles": 135300,
+      "afterTriangles": 20295,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "main-house",
+      "beforeBytes": 1539872,
+      "afterBytes": 280412,
+      "beforeTriangles": 133291,
+      "afterTriangles": 19990,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "inner-side-house",
+      "beforeBytes": 1215736,
+      "afterBytes": 217580,
+      "beforeTriangles": 9289,
+      "afterTriangles": 5505,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "rocking-chair",
+      "beforeBytes": 355552,
+      "afterBytes": 65856,
+      "beforeTriangles": 24567,
+      "afterTriangles": 3073,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "pump-well",
+      "beforeBytes": 1136472,
+      "afterBytes": 78688,
+      "beforeTriangles": 133780,
+      "afterTriangles": 6688,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "wooden-bench",
+      "beforeBytes": 1152256,
+      "afterBytes": 85340,
+      "beforeTriangles": 139267,
+      "afterTriangles": 6963,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "rural-stone-trough",
+      "beforeBytes": 1083512,
+      "afterBytes": 88348,
+      "beforeTriangles": 137368,
+      "afterTriangles": 6868,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "metal-bucket",
+      "beforeBytes": 909448,
+      "afterBytes": 69272,
+      "beforeTriangles": 139676,
+      "afterTriangles": 6980,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "wooden-stool",
+      "beforeBytes": 1268704,
+      "afterBytes": 80072,
+      "beforeTriangles": 140910,
+      "afterTriangles": 7044,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "rose-bush",
+      "beforeBytes": 545704,
+      "afterBytes": 98816,
+      "beforeTriangles": 134002,
+      "afterTriangles": 8255,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "wall-cactus",
+      "beforeBytes": 508104,
+      "afterBytes": 82444,
+      "beforeTriangles": 134369,
+      "afterTriangles": 6684,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "tomato-plant",
+      "beforeBytes": 534120,
+      "afterBytes": 89136,
+      "beforeTriangles": 136560,
+      "afterTriangles": 6828,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "pepper-plant",
+      "beforeBytes": 560120,
+      "afterBytes": 92516,
+      "beforeTriangles": 142018,
+      "afterTriangles": 7099,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "bok-choy",
+      "beforeBytes": 497224,
+      "afterBytes": 79072,
+      "beforeTriangles": 138592,
+      "afterTriangles": 6929,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "green-plant",
+      "beforeBytes": 480312,
+      "afterBytes": 77684,
+      "beforeTriangles": 138254,
+      "afterTriangles": 6911,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "cabbage-plant",
+      "beforeBytes": 494584,
+      "afterBytes": 78960,
+      "beforeTriangles": 137187,
+      "afterTriangles": 6858,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "three-color-cat",
+      "beforeBytes": 588728,
+      "afterBytes": 91968,
+      "beforeTriangles": 136100,
+      "afterTriangles": 6805,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "black-cat",
+      "beforeBytes": 526096,
+      "afterBytes": 75288,
+      "beforeTriangles": 137522,
+      "afterTriangles": 6874,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "white-cat",
+      "beforeBytes": 458016,
+      "afterBytes": 67876,
+      "beforeTriangles": 138454,
+      "afterTriangles": 6918,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          512,
+          512
+        ]
+      ],
+      "animations": []
+    }
+  ]
+}

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-test('入口准备好即可进院，远处和装饰模型不阻塞首屏', async ({ page }) => {
+test('入口准备好即可进院，动物装饰不阻塞首屏', async ({ page }) => {
   const requested: string[] = [];
   page.on('request', (request) => {
     if (new URL(request.url()).pathname.endsWith('.glb')) requested.push(new URL(request.url()).pathname);
@@ -13,7 +13,7 @@ test('入口准备好即可进院，远处和装饰模型不阻塞首屏', async
   await expect(enter).toBeEnabled({ timeout: 30000 });
   expect(requested.some((url) => /character-with-animations\.glb$/.test(url))).toBe(true);
   expect(requested.some((url) => /outer-gate-door\.glb$/.test(url))).toBe(true);
-  expect(requested.some((url) => /black-cat|butterfly|border-collie|main-house|pepper-plant/.test(url))).toBe(false);
+  expect(requested.some((url) => /butterfly|border-collie/.test(url))).toBe(false);
 });
 
 test('必要模型失败时提供重试，而不是永久等待', async ({ page }) => {

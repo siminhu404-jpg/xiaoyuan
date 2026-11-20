@@ -1,4 +1,6 @@
-import { useMemo } from 'react';
+import { Component, Suspense, useEffect, useMemo, type ReactNode } from 'react';
+import { STREAM_ORDER, useAssetStreaming } from './assetStreaming';
+import { AssetPlaceholder } from './AssetPlaceholder';
 import { useGLTF } from '@react-three/drei';
 import * as THREE from 'three';
 import type { HotspotId } from '../content/types';
@@ -63,7 +65,7 @@ export function styleMaterial(material: THREE.Material, style: MaterialStyle = '
 }
 
 /** Load a GLB, normalize it to the scene floor, and mark all meshes for interaction/shadows. */
-export function ImportedAsset({
+function LoadedAsset({
   path,
   hotspotId,
   fitHeight,
@@ -74,6 +76,7 @@ export function ImportedAsset({
   materialStyle = 'courtyard',
 }: ImportedAssetProps) {
   const { scene } = useGLTF(path, true);
+  useEffect(() => { useAssetStreaming.getState().finish(path); }, [path]);
   const model = useMemo(() => {
     const clone = scene.clone(true);
     clone.traverse((object) => {
@@ -110,4 +113,28 @@ export function ImportedAsset({
   }, [centerX, fitHeight, fitWidth, hotspotId, materialStyle, scene]);
 
   return <primitive object={model} position={position} rotation={rotation} />;
+}
+
+class AssetBoundary extends Component<{ path: string; fallback: ReactNode; children: ReactNode }, { failed: boolean }> {
+  state = { failed: false };
+  static getDerivedStateFromError() { return { failed: true }; }
+  componentDidCatch(error: Error) {
+    console.warn('[asset] Keeping lightweight model', this.props.path, error);
+    useAssetStreaming.getState().finish(this.props.path, true);
+  }
+  render() { return this.state.failed ? this.props.fallback : this.props.children; }
+}
+
+export function ImportedAsset(props: ImportedAssetProps) {
+  const status = useAssetStreaming(s => s.status[props.path]);
+  const fallback = <AssetPlaceholder {...props} />;
+  // Entry doors remain required assets so the entry readiness signal is honest.
+  if (!STREAM_ORDER.includes(props.path)) {
+    if (/outer-gate-(right-)?door\.glb/.test(props.path)) return <LoadedAsset {...props} />;
+    return <Suspense fallback={fallback}><LoadedAsset {...props} /></Suspense>;
+  }
+  if (!status || status === 'failed') return fallback;
+  return <AssetBoundary path={props.path} fallback={fallback}>
+    <Suspense fallback={fallback}><LoadedAsset {...props} /></Suspense>
+  </AssetBoundary>;
 }

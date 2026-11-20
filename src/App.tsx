@@ -19,7 +19,7 @@ import Gate from './scene/hotspot-props/Gate';
 import { useGame } from './app/store';
 import StartupBoundary from './ui/StartupBoundary';
 import { GRAYBOX_CAMERA } from './scene/layout';
-import { AssetPrefetcher } from './scene/assetZones';
+import { useAssetStreaming } from './scene/assetStreaming';
 
 function Ready({ onReady }: { onReady: () => void }) {
   useEffect(onReady, [onReady]);
@@ -37,6 +37,9 @@ function Courtyard() {
   const onKidReady = useCallback(() => setKidReady(true), []);
   const onGateReady = useCallback(() => setGateReady(true), []);
   const playing = useGame((state) => state.phase !== 'title');
+  useEffect(() => {
+    if (ready && kidReady && gateReady) useAssetStreaming.getState().start();
+  }, [ready, kidReady, gateReady]);
   return (
     <>
       <Canvas
@@ -66,7 +69,6 @@ function Courtyard() {
             <HotspotRegistry />
           </Suspense>
         </ClickToMove>
-        <AssetPrefetcher />
         <Suspense fallback={null}>
           <Kid />
           <Ready onReady={onKidReady} />
