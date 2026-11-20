@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('入口准备好即可进院，远处和装饰模型不阻塞首屏', async ({ page }) => {
   const requested: string[] = [];
   page.on('request', (request) => {
-    if (request.url().endsWith('.glb')) requested.push(request.url());
+    if (new URL(request.url()).pathname.endsWith('.glb')) requested.push(new URL(request.url()).pathname);
   });
   // A failed optional model must not be requested before the visitor enters.
   await page.route('**/assets/butterfly.glb', (route) => route.abort());
@@ -17,7 +17,7 @@ test('入口准备好即可进院，远处和装饰模型不阻塞首屏', async
 });
 
 test('必要模型失败时提供重试，而不是永久等待', async ({ page }) => {
-  await page.route('**/assets/character-with-animations.glb', (route) => route.abort());
+  await page.route('**/assets/character-with-animations.glb*', (route) => route.abort());
   await page.goto('/');
   await expect(page.getByRole('alert')).toContainText('小院暂时没能打开', { timeout: 15000 });
   await expect(page.getByRole('button', { name: '重新加载' })).toBeVisible();
@@ -26,7 +26,7 @@ test('必要模型失败时提供重试，而不是永久等待', async ({ page 
 test('人物未就绪时不能进院，就绪后可以开门并行走', async ({ page }) => {
   let release!: () => void;
   const waiting = new Promise<void>((resolve) => { release = resolve; });
-  await page.route('**/assets/character-with-animations.glb', async (route) => {
+  await page.route('**/assets/character-with-animations.glb*', async (route) => {
     await waiting;
     await route.continue();
   });

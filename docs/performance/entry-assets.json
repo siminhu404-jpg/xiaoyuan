@@ -1,0 +1,111 @@
+{
+  "sourceRevision": "34001a471cd00f6b1e2b7de6158a5acb256e7a46",
+  "models": [
+    {
+      "name": "outer-gate-door",
+      "beforeBytes": 493888,
+      "afterBytes": 208576,
+      "beforeTriangles": 128926,
+      "afterTriangles": 25780,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "outer-gate-right-door",
+      "beforeBytes": 518456,
+      "afterBytes": 221612,
+      "beforeTriangles": 130757,
+      "afterTriangles": 26150,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "modern-house",
+      "beforeBytes": 644904,
+      "afterBytes": 296904,
+      "beforeTriangles": 129262,
+      "afterTriangles": 25852,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "jujube-tree",
+      "beforeBytes": 572376,
+      "afterBytes": 297424,
+      "beforeTriangles": 138562,
+      "afterTriangles": 41568,
+      "texturesBefore": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": []
+    },
+    {
+      "name": "character-with-animations",
+      "beforeBytes": 1789920,
+      "afterBytes": 772920,
+      "beforeTriangles": 21095,
+      "afterTriangles": 21094,
+      "texturesBefore": [
+        [
+          2048,
+          2048
+        ]
+      ],
+      "texturesAfter": [
+        [
+          1024,
+          1024
+        ]
+      ],
+      "animations": [
+        "sit.001",
+        "walk.001",
+        "run.001",
+        "swagger.001",
+        "wait.001"
+      ]
+    }
+  ]
+}

@@ -3,15 +3,15 @@ import { ASSET_PATHS } from './assets';
 
 describe('正式资产清单', () => {
   it('为首批灰盒替换资产提供稳定的 public 路径', () => {
-    expect(ASSET_PATHS.jujubeTree).toBe('/assets/jujube-tree.glb');
+    expect(ASSET_PATHS.jujubeTree).toBe('/assets/jujube-tree.glb?v=entry-20261120');
     expect(ASSET_PATHS.grapevinePergola).toBe('/assets/grapevine-pergola.glb');
     expect(ASSET_PATHS.pumpWell).toBe('/assets/pump-well.glb');
     expect(ASSET_PATHS.roseBush).toBe('/assets/rose-bush.glb');
     expect(ASSET_PATHS.cabbagePlant).toBe('/assets/cabbage-plant.glb');
     expect(ASSET_PATHS.innerCourtyardGate).toBe('/assets/inner-courtyard-gate.glb');
-    expect(ASSET_PATHS.outerGateDoor).toBe('/assets/outer-gate-door.glb');
-    expect(ASSET_PATHS.outerGateRightDoor).toBe('/assets/outer-gate-right-door.glb');
-    expect(ASSET_PATHS.modernHouse).toBe('/assets/modern-house.glb');
+    expect(ASSET_PATHS.outerGateDoor).toBe('/assets/outer-gate-door.glb?v=entry-20261120');
+    expect(ASSET_PATHS.outerGateRightDoor).toBe('/assets/outer-gate-right-door.glb?v=entry-20261120');
+    expect(ASSET_PATHS.modernHouse).toBe('/assets/modern-house.glb?v=entry-20261120');
     expect(ASSET_PATHS.mainHouse).toBe('/assets/main-house.glb');
     expect(ASSET_PATHS.innerSideHouse).toBe('/assets/inner-side-house.glb');
     expect(ASSET_PATHS.rockingChair).toBe('/assets/rocking-chair.glb');

@@ -10,7 +10,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "validate": "node scripts/validate-content.mjs",
-    "size": "node scripts/check-size.mjs"
+    "size": "node scripts/check-size.mjs",
+    "optimize:entry": "node scripts/optimize-entry-assets.mjs"
   },
   "dependencies": {
     "@react-three/drei": "^9.114.3",
@@ -21,11 +22,17 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@gltf-transform/core": "^4.5.1",
+    "@gltf-transform/extensions": "^4.5.1",
+    "@gltf-transform/functions": "^4.5.1",
     "@playwright/test": "^1.64.1",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
     "@types/three": "^0.169.0",
     "@vitejs/plugin-react": "^4.3.2",
+    "draco3dgltf": "^1.5.9",
+    "meshoptimizer": "^1.3.0",
+    "sharp": "^0.35.5",
     "typescript": "^5.6.3",
     "vite": "^5.4.9",
     "vitest": "^2.1.3"

@@ -1,4 +1,10 @@
-export const assetPath = (fileName: string) => `${import.meta.env.BASE_URL}assets/${fileName}`;
+// Version only the optimized files so an older cached GLB cannot mask a release.
+const ENTRY_ASSETS = new Set([
+  'outer-gate-door.glb', 'outer-gate-right-door.glb', 'modern-house.glb',
+  'jujube-tree.glb', 'character-with-animations.glb',
+]);
+export const assetPath = (fileName: string) =>
+  `${import.meta.env.BASE_URL}assets/${fileName}${ENTRY_ASSETS.has(fileName) ? '?v=entry-20261120' : ''}`;
 
 export const ASSET_PATHS = {
   jujubeTree: assetPath('jujube-tree.glb'),
